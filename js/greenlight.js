@@ -217,6 +217,15 @@ jQuery.extend( jQuery.easing,
             next: 1,
             zindex: 999
         };
+        $(this).append('<span class="gl-control-left"></span>');
+        var left_control = $(this).find('span.gl-control-left');
+        left_control.text("&lt;&mdash;");
+        $(this).append('<span class="gl-control-right"></span>');
+        var right_control = $(this).find('span.gl-control-right');
+        right_control.text("&mdash;&gt;");
+        
+        var height = $(this).outerHeight();
+        var width = $(this).outerWidth();
 
         var GreenlightSlideEffects = {
             slideUpOut: function(slide, height, duration) {
@@ -233,15 +242,26 @@ jQuery.extend( jQuery.easing,
         };
 
         var settings = $.extend({}, defaults, options);
-        var slider = $(this);
-        var slides = $(this).children();
-        slides.each(function() {
-            //$(this).hide();
+        var slider = $(this).find('.gl-slides');
+        var all_slides = slider.children();
+        
+        all_slides.each(function() {
+            $(this).hide();
             $(this).css('z-index', vars.zindex - vars.totalSlides);
             vars.totalSlides++;
         });
-        slides.first().show();
-
+        
+        /*left_control.css('position', 'relative');
+        left_control.css('top', -(height/2)-10);
+        
+        right_control.css('position', 'relative');
+        right_control.css('top', -(height/2)-10);
+        right_control.css('z-index', vars.zindex+1);
+        right_control.css('right', -width+50);*/
+        left_control.css('z-index', vars.zindex+1);
+        
+        //all_slides.first().show();
+        
         var timer;
         var run = function() {
             timer = setInterval(function() {
